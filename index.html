@@ -1118,29 +1118,37 @@ let isOmPlaying = false;
 let omUserMuted = false;
 let omOscillators = [];
 
-function initAndStartOmDrone() {
-  if (omUserMuted) return;
+function createAndStartOmDrone() {
+  if (omUserMuted || isOmPlaying) return;
+
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  if (!AudioCtx) return;
+
+  if (!omAudioCtx) {
+    omAudioCtx = new AudioCtx();
+  }
+
+  if (omAudioCtx.state === 'suspended') {
+    omAudioCtx.resume().then(() => {
+      if (!isOmPlaying && !omUserMuted) {
+        startOscillators();
+      }
+    }).catch(() => {});
+  } else if (omAudioCtx.state === 'running') {
+    startOscillators();
+  }
+}
+
+function startOscillators() {
+  if (isOmPlaying || omUserMuted || !omAudioCtx) return;
+
   try {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (!AudioCtx) return;
-    if (!omAudioCtx) {
-      omAudioCtx = new AudioCtx();
-    }
-    if (omAudioCtx.state === 'suspended') {
-      omAudioCtx.resume().then(() => {
-        isOmPlaying = true;
-        updateNavOmState(true);
-      }).catch(() => {});
-    }
-
-    if (isOmPlaying) return;
-
     const now = omAudioCtx.currentTime;
 
-    // Master Gain with smooth 2.2-second swell
+    // Master Gain with smooth 2.5s gentle swell
     omMasterGain = omAudioCtx.createGain();
     omMasterGain.gain.setValueAtTime(0.0001, now);
-    omMasterGain.gain.exponentialRampToValueAtTime(0.22, now + 2.2);
+    omMasterGain.gain.exponentialRampToValueAtTime(0.22, now + 2.5);
     omMasterGain.connect(omAudioCtx.destination);
 
     // Warm velvety low-pass filter (380 Hz)
@@ -1187,12 +1195,16 @@ function initAndStartOmDrone() {
     isOmPlaying = true;
     updateNavOmState(true);
   } catch (err) {
-    console.warn('AudioContext error:', err);
+    console.warn('Audio start error:', err);
   }
 }
 
 function fadeOutOmDrone() {
-  if (!omMasterGain || !omAudioCtx) return;
+  if (!omMasterGain || !omAudioCtx) {
+    isOmPlaying = false;
+    updateNavOmState(false);
+    return;
+  }
   try {
     const now = omAudioCtx.currentTime;
     const fadeDuration = 1.8; // Smooth 1.8s peaceful fade out
@@ -1238,7 +1250,7 @@ if (topOmBtn) {
       fadeOutOmDrone();
     } else {
       omUserMuted = false;
-      initAndStartOmDrone();
+      createAndStartOmDrone();
     }
   });
 }
@@ -1248,9 +1260,7 @@ const heroOm = document.getElementById('heroOm');
 if (heroOm) {
   heroOm.addEventListener('click', () => {
     omUserMuted = false;
-    if (!isOmPlaying) {
-      initAndStartOmDrone();
-    }
+    createAndStartOmDrone();
     const match = scatterEngines.find(e => heroOm.contains(e.canvas));
     if (match) {
       match.particles.forEach(p => {
@@ -1264,39 +1274,36 @@ if (heroOm) {
   });
 }
 
-// 3. Autoplay immediately upon arrival
-function tryAutoStart() {
+// 3. Autoplay triggers: immediately on load, and on any visitor movement/interaction
+function triggerAudioAutoplay() {
   if (omUserMuted) return;
-  initAndStartOmDrone();
-  if (omAudioCtx && omAudioCtx.state === 'running') {
-    isOmPlaying = true;
-    updateNavOmState(true);
-  }
+  createAndStartOmDrone();
 }
 
-// Start immediately on script execution, DOM ready, and window load
-tryAutoStart();
-document.addEventListener('DOMContentLoaded', tryAutoStart);
-window.addEventListener('load', tryAutoStart);
+// Attempt to start immediately when script runs and when window finishes loading
+triggerAudioAutoplay();
+if (document.readyState === 'complete') {
+  triggerAudioAutoplay();
+} else {
+  window.addEventListener('load', triggerAudioAutoplay, { once: true });
+}
 
-// If browser autoplay policy suspends it, resume on the very first cursor movement or touch
-const arrivalEvents = ['mousemove', 'pointermove', 'wheel', 'scroll', 'touchstart', 'pointerdown', 'keydown'];
-function onArrivalGesture() {
+// Browser Autoplay Fallback: If browser suspended it, unlock on any interaction
+const userActions = ['click', 'pointerdown', 'mousedown', 'touchstart', 'scroll', 'wheel', 'keydown'];
+function onFirstGesture() {
   if (omUserMuted) return;
   if (!isOmPlaying || (omAudioCtx && omAudioCtx.state === 'suspended')) {
-    initAndStartOmDrone();
+    createAndStartOmDrone();
     if (omAudioCtx && omAudioCtx.state === 'suspended') {
       omAudioCtx.resume().then(() => {
-        isOmPlaying = true;
-        updateNavOmState(true);
+        if (!isOmPlaying) startOscillators();
       }).catch(() => {});
     }
   }
-  arrivalEvents.forEach(evt => window.removeEventListener(evt, onArrivalGesture, { passive: true }));
 }
 
-arrivalEvents.forEach(evt => {
-  window.addEventListener(evt, onArrivalGesture, { passive: true });
+userActions.forEach(evt => {
+  window.addEventListener(evt, onFirstGesture, { passive: true });
 });
 </script>
 </body>
