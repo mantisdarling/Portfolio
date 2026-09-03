@@ -355,7 +355,7 @@ footer {
   <section id="hero" class="hero" data-scroll-section="hero" data-scroll-label="ॐ ~/">
     <div class="hero__left">
       <div class="hero__intro">
-        <div class="scatter-item" data-text="ॐ" data-font="vt323" data-size="34" data-color="#FFFFFF"></div>
+        <div id="heroOm" class="scatter-item" data-text="ॐ" data-font="vt323" data-size="34" data-color="#FFFFFF" style="cursor: pointer; display: inline-block;" title="Click to resonate ॐ (136.1 Hz Cosmic Drone)"></div>
         <div class="scatter-item" data-text="EAST INDIA // IIT MADRAS CS'30 // GOOGLE GEAR" data-font="dot" data-scale="1.8" data-color="rgba(255,255,255,0.45)"></div>
 
         <div class="hero__headline">
@@ -1082,6 +1082,94 @@ if (document.fonts) {
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 })();
+
+// ═════════════════════════════════════════════════════════════
+// 5. 136.1 Hz COSMIC OM RESONANCE ENGINE (WEB AUDIO API)
+// ═════════════════════════════════════════════════════════════
+let omAudioCtx = null;
+function play136HzCosmicOm() {
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    if (!omAudioCtx) {
+      omAudioCtx = new AudioCtx();
+    }
+    if (omAudioCtx.state === 'suspended') {
+      omAudioCtx.resume();
+    }
+
+    const now = omAudioCtx.currentTime;
+    const duration = 10.0; // 10-second deep peaceful resonance
+
+    // Master Gain with gentle swelling attack and long peaceful tail
+    const master = omAudioCtx.createGain();
+    master.gain.setValueAtTime(0.0001, now);
+    master.gain.exponentialRampToValueAtTime(0.24, now + 1.4);
+    master.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+    master.connect(omAudioCtx.destination);
+
+    // Warm velvety low-pass filter
+    const filter = omAudioCtx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(420, now);
+    filter.Q.setValueAtTime(2.2, now);
+    filter.connect(master);
+
+    // Subtle breathing tremolo (LFO)
+    const lfo = omAudioCtx.createOscillator();
+    const lfoGain = omAudioCtx.createGain();
+    lfo.frequency.setValueAtTime(0.2, now);
+    lfoGain.gain.setValueAtTime(45, now);
+    lfo.connect(filter.frequency);
+    lfo.start(now);
+    lfo.stop(now + duration);
+
+    // Harmonic stack tuned to 136.10 Hz (Cosmic Earth-year OM Octave)
+    const harmonics = [
+      { f: 136.10, g: 0.50, type: 'sine' },      // Fundamental Om root
+      { f: 136.35, g: 0.35, type: 'sine' },      // +0.25 Hz organic binaural shimmer
+      { f: 68.05,  g: 0.45, type: 'sine' },      // Deep sub-bass grounding root
+      { f: 272.20, g: 0.20, type: 'triangle' },  // 1st octave harmonic
+      { f: 408.30, g: 0.08, type: 'sine' }       // 5th overtone crystal bell shimmer
+    ];
+
+    harmonics.forEach(h => {
+      const osc = omAudioCtx.createOscillator();
+      const g = omAudioCtx.createGain();
+      osc.type = h.type;
+      osc.frequency.setValueAtTime(h.f, now);
+
+      g.gain.setValueAtTime(0.0001, now);
+      g.gain.exponentialRampToValueAtTime(h.g, now + 1.2);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + duration - 0.2);
+
+      osc.connect(g);
+      g.connect(filter);
+      osc.start(now);
+      osc.stop(now + duration);
+    });
+  } catch (err) {
+    console.warn('AudioContext error:', err);
+  }
+}
+
+const heroOm = document.getElementById('heroOm');
+if (heroOm) {
+  heroOm.addEventListener('click', () => {
+    play136HzCosmicOm();
+    // Burst particles visually from the center of Om
+    const match = scatterEngines.find(e => heroOm.contains(e.canvas));
+    if (match) {
+      match.particles.forEach(p => {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 4 + Math.random() * 9;
+        p.vx += Math.cos(angle) * speed;
+        p.vy += Math.sin(angle) * speed;
+      });
+      match.isDirty = true;
+    }
+  });
+}
 </script>
 </body>
 </html>
