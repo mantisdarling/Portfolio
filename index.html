@@ -89,6 +89,30 @@ a {
   font-weight: 700;
 }
 
+.nav-om-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 6px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  user-select: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-om-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: scale(1.15);
+}
+.nav-om-btn.is-playing {
+  color: #FFFFFF;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+}
+.nav-om-btn.is-muted {
+  color: rgba(255, 255, 255, 0.32);
+  text-shadow: none;
+}
+
 .site-header__contacts {
   display: flex;
   align-items: center;
@@ -336,7 +360,8 @@ footer {
 <!-- SITE HEADER -->
 <header class="site-header">
   <nav class="route-breadcrumb" aria-label="Page location">
-    <span id="breadcrumbText">ॐ ~/</span>
+    <span id="breadcrumbOm" class="nav-om-btn is-playing" title="Click ॐ to mute/stop sound" role="button" tabindex="0">ॐ</span>
+    <span id="breadcrumbPath">~/</span>
   </nav>
   <nav class="site-header__contacts" aria-label="Contact links">
     <a href="https://github.com/mantisdarling" target="_blank" class="scatter-item" data-text="GITHUB" data-font="dot" data-scale="1.8" data-color="#FFFFFF"></a>
@@ -1061,21 +1086,22 @@ if (document.fonts) {
 // 4. ROUTE BREADCRUMB SCROLL TRACKER
 // ═════════════════════════════════════════════════════════════
 (function() {
-  const breadcrumb = document.getElementById('breadcrumbText');
+  const breadcrumbPath = document.getElementById('breadcrumbPath');
   const sections = document.querySelectorAll('[data-scroll-section]');
 
   function onScroll() {
-    let current = 'ॐ ~/';
+    let current = '~/';
     const y = window.scrollY + 180;
     sections.forEach(sec => {
       const top = sec.offsetTop;
       const height = sec.offsetHeight;
       if (y >= top && y < top + height) {
-        current = sec.getAttribute('data-scroll-label') || 'ॐ ~/';
+        const label = sec.getAttribute('data-scroll-label') || '~/';
+        current = label.replace(/^ॐ\s*/, '');
       }
     });
-    if (breadcrumb) {
-      breadcrumb.textContent = current;
+    if (breadcrumbPath) {
+      breadcrumbPath.textContent = current;
     }
   }
 
@@ -1084,10 +1110,15 @@ if (document.fonts) {
 })();
 
 // ═════════════════════════════════════════════════════════════
-// 5. 136.1 Hz COSMIC OM RESONANCE ENGINE (WEB AUDIO API)
+// 5. 136.1 Hz COSMIC OM DRONE ENGINE (ARRIVAL AUTOPLAY + FADE OUT)
 // ═════════════════════════════════════════════════════════════
 let omAudioCtx = null;
-function play136HzCosmicOm() {
+let omMasterGain = null;
+let isOmPlaying = false;
+let omOscillators = [];
+
+function initAndStartOmDrone() {
+  if (isOmPlaying) return;
   try {
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
     if (!AudioCtx) return;
@@ -1099,39 +1130,38 @@ function play136HzCosmicOm() {
     }
 
     const now = omAudioCtx.currentTime;
-    const duration = 10.0; // 10-second deep peaceful resonance
 
-    // Master Gain with gentle swelling attack and long peaceful tail
-    const master = omAudioCtx.createGain();
-    master.gain.setValueAtTime(0.0001, now);
-    master.gain.exponentialRampToValueAtTime(0.24, now + 1.4);
-    master.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-    master.connect(omAudioCtx.destination);
+    // Master Gain with smooth 2.2-second swell
+    omMasterGain = omAudioCtx.createGain();
+    omMasterGain.gain.setValueAtTime(0.0001, now);
+    omMasterGain.gain.exponentialRampToValueAtTime(0.22, now + 2.2);
+    omMasterGain.connect(omAudioCtx.destination);
 
-    // Warm velvety low-pass filter
+    // Warm velvety low-pass filter (380 Hz)
     const filter = omAudioCtx.createBiquadFilter();
     filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(420, now);
-    filter.Q.setValueAtTime(2.2, now);
-    filter.connect(master);
+    filter.frequency.setValueAtTime(380, now);
+    filter.Q.setValueAtTime(2.0, now);
+    filter.connect(omMasterGain);
 
-    // Subtle breathing tremolo (LFO)
+    // Meditative slow breathing LFO (cycle every 6.5s)
     const lfo = omAudioCtx.createOscillator();
     const lfoGain = omAudioCtx.createGain();
-    lfo.frequency.setValueAtTime(0.2, now);
-    lfoGain.gain.setValueAtTime(45, now);
+    lfo.frequency.setValueAtTime(0.15, now);
+    lfoGain.gain.setValueAtTime(35, now);
     lfo.connect(filter.frequency);
     lfo.start(now);
-    lfo.stop(now + duration);
 
     // Harmonic stack tuned to 136.10 Hz (Cosmic Earth-year OM Octave)
     const harmonics = [
       { f: 136.10, g: 0.50, type: 'sine' },      // Fundamental Om root
-      { f: 136.35, g: 0.35, type: 'sine' },      // +0.25 Hz organic binaural shimmer
-      { f: 68.05,  g: 0.45, type: 'sine' },      // Deep sub-bass grounding root
-      { f: 272.20, g: 0.20, type: 'triangle' },  // 1st octave harmonic
-      { f: 408.30, g: 0.08, type: 'sine' }       // 5th overtone crystal bell shimmer
+      { f: 136.35, g: 0.35, type: 'sine' },      // Subtle binaural shimmer
+      { f: 68.05,  g: 0.45, type: 'sine' },      // Sub-bass grounding root
+      { f: 272.20, g: 0.18, type: 'triangle' },  // 1st harmonic overtone
+      { f: 408.30, g: 0.06, type: 'sine' }       // 5th overtone bell shimmer
     ];
+
+    omOscillators = [lfo];
 
     harmonics.forEach(h => {
       const osc = omAudioCtx.createOscillator();
@@ -1140,24 +1170,78 @@ function play136HzCosmicOm() {
       osc.frequency.setValueAtTime(h.f, now);
 
       g.gain.setValueAtTime(0.0001, now);
-      g.gain.exponentialRampToValueAtTime(h.g, now + 1.2);
-      g.gain.exponentialRampToValueAtTime(0.0001, now + duration - 0.2);
+      g.gain.exponentialRampToValueAtTime(h.g, now + 2.0);
 
       osc.connect(g);
       g.connect(filter);
       osc.start(now);
-      osc.stop(now + duration);
+      omOscillators.push(osc);
     });
+
+    isOmPlaying = true;
+    updateNavOmState(true);
   } catch (err) {
     console.warn('AudioContext error:', err);
   }
 }
 
+function fadeOutOmDrone() {
+  if (!isOmPlaying || !omMasterGain || !omAudioCtx) return;
+  try {
+    const now = omAudioCtx.currentTime;
+    const fadeDuration = 1.8; // Smooth 1.8s peaceful fade out
+    omMasterGain.gain.cancelScheduledValues(now);
+    omMasterGain.gain.setValueAtTime(omMasterGain.gain.value || 0.22, now);
+    omMasterGain.gain.exponentialRampToValueAtTime(0.0001, now + fadeDuration);
+
+    setTimeout(() => {
+      omOscillators.forEach(osc => {
+        try { osc.stop(); osc.disconnect(); } catch (e) {}
+      });
+      omOscillators = [];
+      isOmPlaying = false;
+      updateNavOmState(false);
+    }, fadeDuration * 1000);
+  } catch (err) {
+    isOmPlaying = false;
+    updateNavOmState(false);
+  }
+}
+
+function updateNavOmState(playing) {
+  const topOm = document.getElementById('breadcrumbOm');
+  if (!topOm) return;
+  if (playing) {
+    topOm.classList.add('is-playing');
+    topOm.classList.remove('is-muted');
+    topOm.setAttribute('title', 'Click ॐ to mute/stop sound');
+  } else {
+    topOm.classList.remove('is-playing');
+    topOm.classList.add('is-muted');
+    topOm.setAttribute('title', 'Click ॐ to play sound');
+  }
+}
+
+// 1. Click on top-most OM to stop with smooth fade
+const topOmBtn = document.getElementById('breadcrumbOm');
+if (topOmBtn) {
+  topOmBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (isOmPlaying) {
+      fadeOutOmDrone();
+    } else {
+      initAndStartOmDrone();
+    }
+  });
+}
+
+// 2. Click on hero OM also triggers drone + particle burst
 const heroOm = document.getElementById('heroOm');
 if (heroOm) {
   heroOm.addEventListener('click', () => {
-    play136HzCosmicOm();
-    // Burst particles visually from the center of Om
+    if (!isOmPlaying) {
+      initAndStartOmDrone();
+    }
     const match = scatterEngines.find(e => heroOm.contains(e.canvas));
     if (match) {
       match.particles.forEach(p => {
@@ -1170,6 +1254,22 @@ if (heroOm) {
     }
   });
 }
+
+// 3. Autoplay on arrival (immediate + on first interaction)
+function startOnArrival() {
+  initAndStartOmDrone();
+  ['pointerdown', 'scroll', 'keydown', 'touchstart'].forEach(evt => {
+    window.removeEventListener(evt, startOnArrival, { passive: true });
+  });
+}
+
+window.addEventListener('load', () => {
+  initAndStartOmDrone();
+});
+
+['pointerdown', 'scroll', 'keydown', 'touchstart'].forEach(evt => {
+  window.addEventListener(evt, startOnArrival, { once: true, passive: true });
+});
 </script>
 </body>
 </html>
