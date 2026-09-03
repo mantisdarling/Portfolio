@@ -1115,10 +1115,11 @@ if (document.fonts) {
 let omAudioCtx = null;
 let omMasterGain = null;
 let isOmPlaying = false;
+let omUserMuted = false;
 let omOscillators = [];
 
 function initAndStartOmDrone() {
-  if (isOmPlaying) return;
+  if (omUserMuted) return;
   try {
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
     if (!AudioCtx) return;
@@ -1126,8 +1127,13 @@ function initAndStartOmDrone() {
       omAudioCtx = new AudioCtx();
     }
     if (omAudioCtx.state === 'suspended') {
-      omAudioCtx.resume();
+      omAudioCtx.resume().then(() => {
+        isOmPlaying = true;
+        updateNavOmState(true);
+      }).catch(() => {});
     }
+
+    if (isOmPlaying) return;
 
     const now = omAudioCtx.currentTime;
 
@@ -1186,7 +1192,7 @@ function initAndStartOmDrone() {
 }
 
 function fadeOutOmDrone() {
-  if (!isOmPlaying || !omMasterGain || !omAudioCtx) return;
+  if (!omMasterGain || !omAudioCtx) return;
   try {
     const now = omAudioCtx.currentTime;
     const fadeDuration = 1.8; // Smooth 1.8s peaceful fade out
@@ -1222,14 +1228,16 @@ function updateNavOmState(playing) {
   }
 }
 
-// 1. Click on top-most OM to stop with smooth fade
+// 1. Click on top-most OM to stop with smooth fade (or resume if muted)
 const topOmBtn = document.getElementById('breadcrumbOm');
 if (topOmBtn) {
   topOmBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    if (isOmPlaying) {
+    if (isOmPlaying && !omUserMuted) {
+      omUserMuted = true;
       fadeOutOmDrone();
     } else {
+      omUserMuted = false;
       initAndStartOmDrone();
     }
   });
@@ -1239,6 +1247,7 @@ if (topOmBtn) {
 const heroOm = document.getElementById('heroOm');
 if (heroOm) {
   heroOm.addEventListener('click', () => {
+    omUserMuted = false;
     if (!isOmPlaying) {
       initAndStartOmDrone();
     }
@@ -1255,20 +1264,39 @@ if (heroOm) {
   });
 }
 
-// 3. Autoplay on arrival (immediate + on first interaction)
-function startOnArrival() {
+// 3. Autoplay immediately upon arrival
+function tryAutoStart() {
+  if (omUserMuted) return;
   initAndStartOmDrone();
-  ['pointerdown', 'scroll', 'keydown', 'touchstart'].forEach(evt => {
-    window.removeEventListener(evt, startOnArrival, { passive: true });
-  });
+  if (omAudioCtx && omAudioCtx.state === 'running') {
+    isOmPlaying = true;
+    updateNavOmState(true);
+  }
 }
 
-window.addEventListener('load', () => {
-  initAndStartOmDrone();
-});
+// Start immediately on script execution, DOM ready, and window load
+tryAutoStart();
+document.addEventListener('DOMContentLoaded', tryAutoStart);
+window.addEventListener('load', tryAutoStart);
 
-['pointerdown', 'scroll', 'keydown', 'touchstart'].forEach(evt => {
-  window.addEventListener(evt, startOnArrival, { once: true, passive: true });
+// If browser autoplay policy suspends it, resume on the very first cursor movement or touch
+const arrivalEvents = ['mousemove', 'pointermove', 'wheel', 'scroll', 'touchstart', 'pointerdown', 'keydown'];
+function onArrivalGesture() {
+  if (omUserMuted) return;
+  if (!isOmPlaying || (omAudioCtx && omAudioCtx.state === 'suspended')) {
+    initAndStartOmDrone();
+    if (omAudioCtx && omAudioCtx.state === 'suspended') {
+      omAudioCtx.resume().then(() => {
+        isOmPlaying = true;
+        updateNavOmState(true);
+      }).catch(() => {});
+    }
+  }
+  arrivalEvents.forEach(evt => window.removeEventListener(evt, onArrivalGesture, { passive: true }));
+}
+
+arrivalEvents.forEach(evt => {
+  window.addEventListener(evt, onArrivalGesture, { passive: true });
 });
 </script>
 </body>
