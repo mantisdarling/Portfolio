@@ -220,7 +220,46 @@ a {
 .selected-work__meta {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
+}
+
+.company-logo-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px;
+  box-sizing: border-box;
+  margin-bottom: 6px;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  text-decoration: none;
+}
+.company-logo-link:hover {
+  transform: translateY(-3px) scale(1.08);
+  border-color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.18);
+}
+.company-logo-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 6px;
+}
+
+.company-name-link {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.company-name-link:hover {
+  opacity: 0.8;
 }
 
 .selected-work__body {
@@ -352,12 +391,27 @@ footer {
       <!-- ROW 01: SOFTWARE ENGINEER INTERN -->
       <article class="selected-work__card">
         <div class="selected-work__meta">
+          <a href="https://opensourceconnect.in" target="_blank" rel="noreferrer" class="company-logo-link" title="Visit Open Source Connect India">
+            <svg viewBox="0 0 40 40" class="company-logo-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="8" fill="#0D1117"/>
+              <circle cx="20" cy="20" r="13" stroke="#FFFFFF" stroke-width="2.2" stroke-dasharray="4 2"/>
+              <circle cx="20" cy="20" r="4.5" fill="#FFFFFF"/>
+              <circle cx="20" cy="10" r="2.5" fill="#FFFFFF"/>
+              <circle cx="28.5" cy="25" r="2.5" fill="#FFFFFF"/>
+              <circle cx="11.5" cy="25" r="2.5" fill="#FFFFFF"/>
+              <line x1="20" y1="12.5" x2="20" y2="15.5" stroke="#FFFFFF" stroke-width="1.8"/>
+              <line x1="13.5" y1="23.5" x2="16.5" y2="21.5" stroke="#FFFFFF" stroke-width="1.8"/>
+              <line x1="26.5" y1="23.5" x2="23.5" y2="21.5" stroke="#FFFFFF" stroke-width="1.8"/>
+            </svg>
+          </a>
           <div class="scatter-item" data-text="01" data-font="dot" data-scale="1.9" data-color="rgba(255,255,255,0.45)"></div>
           <div class="scatter-item" data-text="AUG 2026 - PRESENT" data-font="dot" data-scale="1.8" data-color="rgba(255,255,255,0.45)"></div>
         </div>
         <div class="selected-work__body">
           <div class="scatter-item" data-text="SOFTWARE ENGINEER INTERN" data-font="vt323" data-size="32" data-spacing="2" data-color="#FFFFFF"></div>
-          <div class="scatter-item" data-text="OPEN SOURCE CONNECT // BENGALURU, KARNATAKA, INDIA (REMOTE)" data-font="dot" data-scale="1.8" data-color="rgba(255,255,255,0.45)"></div>
+          <a href="https://opensourceconnect.in" target="_blank" rel="noreferrer" class="company-name-link">
+            <div class="scatter-item" data-text="OPEN SOURCE CONNECT // BENGALURU, KARNATAKA, INDIA (REMOTE) ↗" data-font="dot" data-scale="1.8" data-color="rgba(255,255,255,0.55)"></div>
+          </a>
           <div class="scatter-item" data-text="SELECTED AS AN OFFICIAL CONTRIBUTOR FOR OPEN SOURCE CONNECT INDIA (OSCI) 2026, EXECUTING TASKS IN A HANDS-ON SOFTWARE ENGINEERING CAPACITY WITHIN ONE OF THE LARGEST COLLABORATIVE OPEN-SOURCE INITIATIVES IN THE COUNTRY. THIS POSITION FOCUSES ON CONTRIBUTING CLEAN, FUNCTIONAL CODE TO REAL-WORLD OPEN-SOURCE REPOSITORIES, ENGAGING IN SPECIALIZED TECHNICAL WORKSHOPS, AND EXPANDING CORE DEVELOPMENT SKILLS UNDER THE DIRECT MENTORSHIP OF EXPERIENCED MAINTAINERS AND INDUSTRY PROFESSIONALS. FURTHERMORE, THE ROLE INVOLVES COLLABORATING ACROSS A DISTRIBUTED NETWORK OF DEVELOPERS, PROJECT ADMINS, AND TECHNOLOGY LEADERS TO ACHIEVE PROJECT MILESTONES WHILE PREPARING FOR CORPORATE INTERNSHIP AND CAREER PATHWAYS WITH PARTNER ORGANIZATIONS." data-font="dot" data-scale="2.0" data-wrap="740" data-color="rgba(255,255,255,0.85)"></div>
           <div class="tag-list">
             <span><div class="scatter-item" data-text="OPEN-SOURCE DEVELOPMENT" data-font="dot" data-scale="1.5" data-color="rgba(255,255,255,0.5)"></div></span>
@@ -370,12 +424,21 @@ footer {
       <!-- ROW 02: SECURITY RESEARCHER -->
       <article class="selected-work__card">
         <div class="selected-work__meta">
+          <a href="https://owasp.org" target="_blank" rel="noreferrer" class="company-logo-link" title="Visit OWASP Foundation">
+            <svg viewBox="0 0 40 40" class="company-logo-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="8" fill="#00508F"/>
+              <circle cx="20" cy="20" r="13.5" stroke="#FFFFFF" stroke-width="2.5"/>
+              <path d="M11 20C13.5 13 16.5 13 20 20C23.5 27 26.5 27 29 20" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round"/>
+            </svg>
+          </a>
           <div class="scatter-item" data-text="02" data-font="dot" data-scale="1.9" data-color="rgba(255,255,255,0.45)"></div>
           <div class="scatter-item" data-text="FEB 2020 - PRESENT" data-font="dot" data-scale="1.8" data-color="rgba(255,255,255,0.45)"></div>
         </div>
         <div class="selected-work__body">
           <div class="scatter-item" data-text="SECURITY RESEARCHER" data-font="vt323" data-size="32" data-spacing="2" data-color="#FFFFFF"></div>
-          <div class="scatter-item" data-text="OWASP FOUNDATION // ASIA (REMOTE)" data-font="dot" data-scale="1.8" data-color="rgba(255,255,255,0.45)"></div>
+          <a href="https://owasp.org" target="_blank" rel="noreferrer" class="company-name-link">
+            <div class="scatter-item" data-text="OWASP FOUNDATION // ASIA (REMOTE) ↗" data-font="dot" data-scale="1.8" data-color="rgba(255,255,255,0.55)"></div>
+          </a>
           <div class="scatter-item" data-text="SECURITY RESEARCHER OPERATING WITHIN STRUCTURED RESPONSIBLE DISCLOSURE PROGRAMS SINCE FEBRUARY 2020, SPECIALIZING IN MAPPING ATTACK SURFACES ACROSS DIVERSE DIGITAL SYSTEMS AND SCALABLE STARTUP INFRASTRUCTURE. SYSTEMATICALLY DIAGNOSING WEB APPLICATION LOGIC ERRORS THROUGH ADVANCED PROXY INTERCEPTION, TRAFFIC ANALYSIS, AND DIRECTORY FUZZING METHODOLOGIES TO EXPOSE CRITICAL THREATS INCLUDING IDOR, XSS, AND AUTHENTICATION BYPASSES. CONDUCT DETAILED PAYLOAD TESTING ON SERVER ENDPOINTS TO ENGINEER CLEAR, REPRODUCIBLE PROOF-OF-CONCEPT DOCUMENTATION. TRANSLATE THESE COMPLEX TECHNICAL VECTORS INTO CLEAR REMEDIATION BRIEFS, INTERFACING DIRECTLY WITH DEVELOPMENT PIPELINES TO DEPLOY HOTFIXES, SECURE PRODUCTION PARAMETERS, AND SCALE MODERN THREAT-MITIGATION DEFENSES." data-font="dot" data-scale="2.0" data-wrap="740" data-color="rgba(255,255,255,0.85)"></div>
           <div class="tag-list">
             <span><div class="scatter-item" data-text="ETHICAL HACKING" data-font="dot" data-scale="1.5" data-color="rgba(255,255,255,0.5)"></div></span>
@@ -389,12 +452,25 @@ footer {
       <!-- ROW 03: MEDIA PRODUCER & SANDBOX GAME STRATEGIST -->
       <article class="selected-work__card">
         <div class="selected-work__meta">
+          <a href="https://www.minecraft.net" target="_blank" rel="noreferrer" class="company-logo-link" title="Visit Mojang Studios">
+            <svg viewBox="0 0 40 40" class="company-logo-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="8" fill="#EB1E26"/>
+              <rect x="9" y="14" width="4" height="12" fill="#FFFFFF"/>
+              <rect x="15" y="14" width="4" height="12" fill="#FFFFFF"/>
+              <rect x="9" y="22" width="10" height="4" fill="#FFFFFF"/>
+              <rect x="21" y="14" width="4" height="12" fill="#FFFFFF"/>
+              <rect x="27" y="14" width="4" height="8" fill="#FFFFFF"/>
+              <circle cx="29" cy="24.5" r="1.8" fill="#FFFFFF"/>
+            </svg>
+          </a>
           <div class="scatter-item" data-text="03" data-font="dot" data-scale="1.9" data-color="rgba(255,255,255,0.45)"></div>
           <div class="scatter-item" data-text="JAN 2017 - JUN 2025" data-font="dot" data-scale="1.8" data-color="rgba(255,255,255,0.45)"></div>
         </div>
         <div class="selected-work__body">
           <div class="scatter-item" data-text="MEDIA PRODUCER & SANDBOX GAME STRATEGIST" data-font="vt323" data-size="32" data-spacing="2" data-color="#FFFFFF"></div>
-          <div class="scatter-item" data-text="MOJANG STUDIOS // EAST INDIA (REMOTE)" data-font="dot" data-scale="1.8" data-color="rgba(255,255,255,0.45)"></div>
+          <a href="https://www.minecraft.net" target="_blank" rel="noreferrer" class="company-name-link">
+            <div class="scatter-item" data-text="MOJANG STUDIOS // EAST INDIA (REMOTE) ↗" data-font="dot" data-scale="1.8" data-color="rgba(255,255,255,0.55)"></div>
+          </a>
           <div class="scatter-item" data-text="MEDIA PRODUCER AND COMPETITIVE MINECRAFT PLAYER WITHIN THE MOJANG SERVER ECOSYSTEM, SPECIALIZING IN HIGH-STAKES BEDWARS CIRCUITS, SURVIVAL MULTIPLAYER (SMP) ENVIRONMENTS, AND COMMUNITY MINI GAMES. SELECTED TO LEAD SERVER-SIDE OPERATIONS FOR HISTORIC GLOBAL FRAMEWORKS INCLUDING THE LANDMARK MINECON EARTH GLOBAL LAUNCH, SUBSEQUENT MINECRAFT LIVE CYCLES, AND THE 15TH ANNIVERSARY COMMUNITY CELEBRATIONS MARKING THE FIRST TIME PASSIONATE CRAFTERS HOSTED OFFICIAL COMMUNITY EVENTS. ENTRUSTED ACROSS A MULTI-YEAR TIMELINE WITH ORCHESTRATING COMPETITIVE MATCH STRUCTURES AND DRIVING REAL-TIME DIGITAL ENGAGEMENT FOR HUNDREDS OF CONCURRENT PARTICIPANTS ACROSS DECENTRALIZED GAMING ECOSYSTEMS. SIMULTANEOUSLY MANAGED THE END-TO-END PRODUCTION WORKFLOW FOR AN INDEPENDENT YOUTUBE CHANNEL CAPTURING GAMEPLAY FOOTAGE, EXECUTING VIDEO EDITING, AND TRACKING PLATFORM METRICS WHILE TRANSLATING COMPLEX SERVER DYNAMICS INTO SCALABLE COMMUNITY EXPERIENCES." data-font="dot" data-scale="2.0" data-wrap="740" data-color="rgba(255,255,255,0.85)"></div>
           <div class="tag-list">
             <span><div class="scatter-item" data-text="MINECON OPERATIONS" data-font="dot" data-scale="1.5" data-color="rgba(255,255,255,0.5)"></div></span>
@@ -408,12 +484,24 @@ footer {
       <!-- ROW 04: VARSITY FOOTBALL PLAYER -->
       <article class="selected-work__card">
         <div class="selected-work__meta">
+          <a href="http://adwaitamission.com" target="_blank" rel="noreferrer" class="company-logo-link" title="Visit Adwaita Mission High School">
+            <svg viewBox="0 0 40 40" class="company-logo-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="8" fill="#FFFFFF"/>
+              <circle cx="20" cy="20" r="14" stroke="#C41E3A" stroke-width="2" fill="none"/>
+              <circle cx="20" cy="20" r="10" stroke="#C41E3A" stroke-width="1.2" stroke-dasharray="2 1.5"/>
+              <path d="M20 12L23 17H17L20 12Z" fill="#C41E3A"/>
+              <circle cx="20" cy="20" r="3" fill="#C41E3A"/>
+              <path d="M14 25C17 23 23 23 26 25" stroke="#C41E3A" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </a>
           <div class="scatter-item" data-text="04" data-font="dot" data-scale="1.9" data-color="rgba(255,255,255,0.45)"></div>
           <div class="scatter-item" data-text="MAY 2021 - MAY 2025" data-font="dot" data-scale="1.8" data-color="rgba(255,255,255,0.45)"></div>
         </div>
         <div class="selected-work__body">
           <div class="scatter-item" data-text="VARSITY FOOTBALL PLAYER" data-font="vt323" data-size="32" data-spacing="2" data-color="#FFFFFF"></div>
-          <div class="scatter-item" data-text="ADWAITA MISSION HIGH SCHOOL // EAST INDIA (ON-SITE)" data-font="dot" data-scale="1.8" data-color="rgba(255,255,255,0.45)"></div>
+          <a href="http://adwaitamission.com" target="_blank" rel="noreferrer" class="company-name-link">
+            <div class="scatter-item" data-text="ADWAITA MISSION HIGH SCHOOL // EAST INDIA (ON-SITE) ↗" data-font="dot" data-scale="1.8" data-color="rgba(255,255,255,0.55)"></div>
+          </a>
           <div class="scatter-item" data-text="PLAYED AS A DEDICATED PLAYER ON THE SCHOOL FOOTBALL TEAM FOR 4 CONSECUTIVE YEARS. THIS LONG-TERM COMMITMENT WAS DEFINED BY AN UNYIELDING TRAINING RHYTHM, REQUIRING A METICULOUS BALANCE BETWEEN GRUELING PHYSICAL CONDITIONING AND HIGH-LEVEL ACADEMIC PERFORMANCE. IMMERSED IN HIGH-STAKES COMPETITIVE ENVIRONMENTS, I MASTERED THE ART OF SPLIT-SECOND POSITIONAL ADAPTATION AND FLUID, SILENT ON-FIELD SYNCHRONIZATION. NAVIGATING THE UNPREDICTABLE DYNAMICS OF TOURNAMENT PLAY INSTILLED A RESILIENT MINDSET, TRANSFORMING HIGH-PRESSURE CHALLENGES INTO CALCULATED TACTICAL RESPONSES THAT PRIORITIZED COLLECTIVE TEAM VICTORY OVER INDIVIDUAL RECOGNITION." data-font="dot" data-scale="2.0" data-wrap="740" data-color="rgba(255,255,255,0.85)"></div>
           <div class="tag-list">
             <span><div class="scatter-item" data-text="CROSS-FUNCTIONAL TEAM BUILDING" data-font="dot" data-scale="1.5" data-color="rgba(255,255,255,0.5)"></div></span>
@@ -426,12 +514,20 @@ footer {
       <!-- ROW 05: ESPORTS ATHLETE -->
       <article class="selected-work__card">
         <div class="selected-work__meta">
+          <a href="https://www.garena.com" target="_blank" rel="noreferrer" class="company-logo-link" title="Visit Garena">
+            <svg viewBox="0 0 40 40" class="company-logo-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="8" fill="#ED1C24"/>
+              <path d="M28 20C28 24.4183 24.4183 28 20 28C15.5817 28 12 24.4183 12 20C12 15.5817 15.5817 12 20 12C23.5 12 26 14 27 16.5L23.5 18C23 16.5 21.5 15.5 20 15.5C17.5 15.5 15.5 17.5 15.5 20C15.5 22.5 17.5 24.5 20 24.5C22 24.5 23.5 23.2 24 21.5H20V19H28V20Z" fill="#FFFFFF"/>
+            </svg>
+          </a>
           <div class="scatter-item" data-text="05" data-font="dot" data-scale="1.9" data-color="rgba(255,255,255,0.45)"></div>
           <div class="scatter-item" data-text="APR 2018 - JUN 2024" data-font="dot" data-scale="1.8" data-color="rgba(255,255,255,0.45)"></div>
         </div>
         <div class="selected-work__body">
           <div class="scatter-item" data-text="ESPORTS ATHLETE" data-font="vt323" data-size="32" data-spacing="2" data-color="#FFFFFF"></div>
-          <div class="scatter-item" data-text="GARENA // EAST INDIA (REMOTE)" data-font="dot" data-scale="1.8" data-color="rgba(255,255,255,0.45)"></div>
+          <a href="https://www.garena.com" target="_blank" rel="noreferrer" class="company-name-link">
+            <div class="scatter-item" data-text="GARENA // EAST INDIA (REMOTE) ↗" data-font="dot" data-scale="1.8" data-color="rgba(255,255,255,0.55)"></div>
+          </a>
           <div class="scatter-item" data-text="COMPETITIVE ESPORTS ATHLETE WITH 6+ YEARS OF EXPERIENCE EXECUTING HIGH-LEVEL TACTICAL STRATEGIES DURING OFFICIAL COMPETITIVE TOURNAMENTS ACROSS GARENA TITLES. PROVEN TRACK RECORD OF LEVERAGING DATA ANALYSIS, MAP TELEMETRY, AND ZONE METRICS TO OPTIMIZE SQUAD POSITIONING AND REAL-TIME COUNTER-STRATEGIES. DEMONSTRATED HIGH-PRESSURE COMMUNICATION AND SPLIT-SECOND DECISION-MAKING WHILE COLLABORATING WITH A REMOTE, MULTI-REGIONAL 4-PLAYER SQUAD. ADEPT AT MANAGING TIME EFFECTIVELY TO BALANCE INTENSIVE TRAINING ALONGSIDE RIGOROUS ACADEMIC SCHEDULES." data-font="dot" data-scale="2.0" data-wrap="740" data-color="rgba(255,255,255,0.85)"></div>
           <div class="tag-list">
             <span><div class="scatter-item" data-text="ESPORTS" data-font="dot" data-scale="1.5" data-color="rgba(255,255,255,0.5)"></div></span>
@@ -528,7 +624,7 @@ footer {
 // ═════════════════════════════════════════════════════════════
 // 1. HIGH-PERFORMANCE 60-120 FPS MANNAN.IO SCATTER ENGINE
 // ═════════════════════════════════════════════════════════════
-const FONT_5X7 = {" ": [".....", ".....", ".....", ".....", ".....", ".....", "....."], "!": ["..#..", "..#..", "..#..", "..#..", "..#..", ".....", "..#.."], "\"": [".#.#.", ".#.#.", ".#.#.", ".....", ".....", ".....", "....."], "#": [".#.#.", "#####", ".#.#.", "#####", ".#.#.", ".....", "....."], "$": ["..#..", ".####", "#.#..", ".###.", "..#.#", "####.", "..#.."], "%": ["##..#", "##.#.", "...#.", "..#..", ".#...", ".#.##", "#..##"], "&": [".##..", "#..#.", "#.#..", ".##..", "#.#..", "#..#.", ".##.#"], "'": ["..#..", "..#..", "..#..", ".....", ".....", ".....", "....."], "(": ["...#.", "..#..", ".#...", ".#...", ".#...", "..#..", "...#."], ")": [".#...", "..#..", "...#.", "...#.", "...#.", "..#..", "...#."], "*": [".....", "#.#.#", ".###.", "#####", ".###.", "#.#.#", "....."], "+": [".....", "..#..", "..#..", "#####", "..#..", "..#..", "....."], ",": [".....", ".....", ".....", ".....", "..##.", "..#..", ".#..."], "-": [".....", ".....", ".....", "#####", ".....", ".....", "....."], ".": [".....", ".....", ".....", ".....", ".....", "..##.", "..##."], "/": ["....#", "...#.", "..#..", ".#...", "#....", ".....", "....."], "0": [".###.", "#...#", "#..##", "#.#.#", "##..#", "#...#", ".###."], "1": ["..#..", ".##..", "..#..", "..#..", "..#..", "..#..", ".###."], "2": [".###.", "#...#", "....#", "...#.", "..#..", ".#...", "#####"], "3": ["#####", "....#", "...#.", "..##.", "....#", "#...#", ".###."], "4": ["...#.", "..##.", ".#.#.", "#..#.", "#####", "...#.", "...#."], "5": ["#####", "#....", "####.", "....#", "....#", "#...#", ".###."], "6": [".###.", "#....", "#....", "####.", "#...#", "#...#", ".###."], "7": ["#####", "....#", "...#.", "..#..", ".#...", ".#...", ".#..."], "8": [".###.", "#...#", "#...#", ".###.", "#...#", "#...#", ".###."], "9": [".###.", "#...#", "#...#", ".####", "....#", "....#", ".###."], ":": [".....", "..##.", "..##.", ".....", "..##.", "..##.", "....."], ";": [".....", "..##.", "..##.", ".....", "..##.", "..#..", ".#..."], "<": ["...#.", "..#..", ".#...", "#....", ".#...", "..#..", "...#."], "=": [".....", "#####", ".....", "#####", ".....", ".....", "....."], ">": [".#...", "..#..", "...#.", "....#", "...#.", "..#..", ".#..."], "?": [".###.", "#...#", "...#.", "..#..", "..#..", ".....", "..#.."], "@": [".###.", "#...#", "#.###", "#.#.#", "#.###", "#....", ".###."], "A": [".###.", "#...#", "#...#", "#####", "#...#", "#...#", "#...#"], "B": ["####.", "#...#", "#...#", "####.", "#...#", "#...#", "####."], "C": [".###.", "#...#", "#....", "#....", "#....", "#...#", ".###."], "D": ["####.", "#...#", "#...#", "#...#", "#...#", "#...#", "####."], "E": ["#####", "#....", "#....", "####.", "#....", "#....", "#####"], "F": ["#####", "#....", "#....", "####.", "#....", "#....", "#...."], "G": [".###.", "#...#", "#....", "#.###", "#...#", "#...#", ".###."], "H": ["#...#", "#...#", "#...#", "#####", "#...#", "#...#", "#...#"], "I": ["#####", "..#..", "..#..", "..#..", "..#..", "..#..", "#####"], "J": ["..###", "...#.", "...#.", "...#.", "#..#.", "#..#.", ".##.."], "K": ["#...#", "#..#.", "#.#..", "##...", "#.#..", "#..#.", "#...#"], "L": ["#....", "#....", "#....", "#....", "#....", "#....", "#####"], "M": ["#...#", "##.##", "#.#.#", "#.#.#", "#...#", "#...#", "#...#"], "N": ["#...#", "##..#", "#.#.#", "#..##", "#...#", "#...#", "#...#"], "O": [".###.", "#...#", "#...#", "#...#", "#...#", "#...#", ".###."], "P": ["####.", "#...#", "#...#", "####.", "#....", "#....", "#...."], "Q": [".###.", "#...#", "#...#", "#...#", "#.#.#", "#..#.", ".##.#"], "R": ["####.", "#...#", "#...#", "####.", "#.#..", "#..#.", "#...#"], "S": [".####", "#....", "#....", ".###.", "....#", "....#", "####."], "T": ["#####", "..#..", "..#..", "..#..", "..#..", "..#..", "..#.."], "U": ["#...#", "#...#", "#...#", "#...#", "#...#", "#...#", ".###."], "V": ["#...#", "#...#", "#...#", "#...#", ".#.#.", ".#.#.", "..#.."], "W": ["#...#", "#...#", "#...#", "#.#.#", "#.#.#", "##.##", "#...#"], "X": ["#...#", "#...#", ".#.#.", "..#..", ".#.#.", "#...#", "#...#"], "Y": ["#...#", "#...#", ".#.#.", "..#..", "..#..", "..#..", "..#.."], "Z": ["#####", "....#", "...#.", "..#..", ".#...", "#....", "#####"], "~": [".....", ".##..", "##.##", "..##.", ".....", ".....", "....."], "\u2022": [".....", ".....", "..#..", ".###.", "..#..", ".....", "....."], "v": [".....", ".....", "#...#", ".#.#.", "..#..", ".....", "....."], "\u00ae": [".###.", "#.#.#", "#.##.", "#.#.#", ".###.", ".....", "....."]};
+const FONT_5X7 = {" ": [".....", ".....", ".....", ".....", ".....", ".....", "....."], "!": ["..#..", "..#..", "..#..", "..#..", "..#..", ".....", "..#.."], "\"": [".#.#.", ".#.#.", ".#.#.", ".....", ".....", ".....", "....."], "#": [".#.#.", "#####", ".#.#.", "#####", ".#.#.", ".....", "....."], "$": ["..#..", ".####", "#.#..", ".###.", "..#.#", "####.", "..#.."], "%": ["##..#", "##.#.", "...#.", "..#..", ".#...", ".#.##", "#..##"], "&": [".##..", "#..#.", "#.#..", ".##..", "#.#..", "#..#.", ".##.#"], "'": ["..#..", "..#..", "..#..", ".....", ".....", ".....", "....."], "(": ["...#.", "..#..", ".#...", ".#...", ".#...", "..#..", "...#."], ")": [".#...", "..#..", "...#.", "...#.", "...#.", "..#..", "...#."], "*": [".....", "#.#.#", ".###.", "#####", ".###.", "#.#.#", "....."], "+": [".....", "..#..", "..#..", "#####", "..#..", "..#..", "....."], ",": [".....", ".....", ".....", ".....", "..##.", "..#..", ".#..."], "-": [".....", ".....", ".....", "#####", ".....", ".....", "....."], ".": [".....", ".....", ".....", ".....", ".....", "..##.", "..##."], "/": ["....#", "...#.", "..#..", ".#...", "#....", ".....", "....."], "0": [".###.", "#...#", "#..##", "#.#.#", "##..#", "#...#", ".###."], "1": ["..#..", ".##..", "..#..", "..#..", "..#..", "..#..", ".###."], "2": [".###.", "#...#", "....#", "...#.", "..#..", ".#...", "#####"], "3": ["#####", "....#", "...#.", "..##.", "....#", "#...#", ".###."], "4": ["...#.", "..##.", ".#.#.", "#..#.", "#####", "...#.", "...#."], "5": ["#####", "#....", "####.", "....#", "....#", "#...#", ".###."], "6": [".###.", "#....", "#....", "####.", "#...#", "#...#", ".###."], "7": ["#####", "....#", "...#.", "..#..", ".#...", ".#...", ".#..."], "8": [".###.", "#...#", "#...#", ".###.", "#...#", "#...#", ".###."], "9": [".###.", "#...#", "#...#", ".####", "....#", "....#", ".###."], ":": [".....", "..##.", "..##.", ".....", "..##.", "..##.", "....."], ";": [".....", "..##.", "..##.", ".....", "..##.", "..#..", ".#..."], "<": ["...#.", "..#..", ".#...", "#....", ".#...", "..#..", "...#."], "=": [".....", "#####", ".....", "#####", ".....", ".....", "....."], ">": [".#...", "..#..", "...#.", "....#", "...#.", "..#..", ".#..."], "?": [".###.", "#...#", "...#.", "..#..", "..#..", ".....", "..#.."], "@": [".###.", "#...#", "#.###", "#.#.#", "#.###", "#....", ".###."], "A": [".###.", "#...#", "#...#", "#####", "#...#", "#...#", "#...#"], "B": ["####.", "#...#", "#...#", "####.", "#...#", "#...#", "####."], "C": [".###.", "#...#", "#....", "#....", "#....", "#...#", ".###."], "D": ["####.", "#...#", "#...#", "#...#", "#...#", "#...#", "####."], "E": ["#####", "#....", "#....", "####.", "#....", "#....", "#####"], "F": ["#####", "#....", "#....", "####.", "#....", "#....", "#...."], "G": [".###.", "#...#", "#....", "#.###", "#...#", "#...#", ".###."], "H": ["#...#", "#...#", "#...#", "#####", "#...#", "#...#", "#...#"], "I": ["#####", "..#..", "..#..", "..#..", "..#..", "..#..", "#####"], "J": ["..###", "...#.", "...#.", "...#.", "#..#.", "#..#.", ".##.."], "K": ["#...#", "#..#.", "#.#..", "##...", "#.#..", "#..#.", "#...#"], "L": ["#....", "#....", "#....", "#....", "#....", "#....", "#####"], "M": ["#...#", "##.##", "#.#.#", "#.#.#", "#...#", "#...#", "#...#"], "N": ["#...#", "##..#", "#.#.#", "#..##", "#...#", "#...#", "#...#"], "O": [".###.", "#...#", "#...#", "#...#", "#...#", "#...#", ".###."], "P": ["####.", "#...#", "#...#", "####.", "#....", "#....", "#...."], "Q": [".###.", "#...#", "#...#", "#...#", "#.#.#", "#..#.", ".##.#"], "R": ["####.", "#...#", "#...#", "####.", "#.#..", "#..#.", "#...#"], "S": [".####", "#....", "#....", ".###.", "....#", "....#", "####."], "T": ["#####", "..#..", "..#..", "..#..", "..#..", "..#..", "..#.."], "U": ["#...#", "#...#", "#...#", "#...#", "#...#", "#...#", ".###."], "V": ["#...#", "#...#", "#...#", "#...#", ".#.#.", ".#.#.", "..#.."], "W": ["#...#", "#...#", "#...#", "#.#.#", "#.#.#", "##.##", "#...#"], "X": ["#...#", "#...#", ".#.#.", "..#..", ".#.#.", "#...#", "#...#"], "Y": ["#...#", "#...#", ".#.#.", "..#..", "..#..", "..#..", "..#.."], "Z": ["#####", "....#", "...#.", "..#..", ".#...", "#....", "#####"], "~": [".....", ".##..", "##.##", "..##.", ".....", ".....", "....."], "\u2022": [".....", ".....", "..#..", ".###.", "..#..", ".....", "....."], "v": [".....", ".....", "#...#", ".#.#.", "..#..", ".....", "....."], "\u00ae": [".###.", "#.#.#", "#.##.", "#.#.#", ".###.", ".....", "....."], "\u2197": ["...##", "..###", ".#.##", "#..##", "...##", "...##", "....."]};
 
 let globalMX = -99999, globalMY = -99999;
 
