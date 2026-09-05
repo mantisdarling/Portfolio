@@ -3,9 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Harshit Kumar</title>
-<meta name="description" content="AI Systems Architect & Founder. Give me a goal and I get it done, across distributed systems, machine learning, OS kernels, and product decisions.">
+<title>Harshit Kumar — AI Systems Architect &amp; Founder</title>
+<meta name="description" content="Official portfolio of Harshit Kumar (mantisdarling) — AI Systems Architect, Founder @ MANTIS, Google GEAR Fellow, IIT Madras CS '30, NVIDIA Dev Member, and Security Researcher.">
+<meta name="keywords" content="Harshit Kumar, mantisdarling, AI Systems Architect, MANTIS, Google GEAR, IIT Madras, NVIDIA Developer, Security Researcher, Elite Coders, Open Source Connect India, Portfolio">
+<meta name="author" content="Harshit Kumar">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://mantisdarling.in/">
 <meta name="theme-color" content="#000000">
+
+<!-- Open Graph / Facebook / LinkedIn / Discord -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mantisdarling.in/">
+<meta property="og:site_name" content="Harshit Kumar">
+<meta property="og:title" content="Harshit Kumar — AI Systems Architect &amp; Founder">
+<meta property="og:description" content="AI Systems Architect, Google GEAR Fellow, IIT Madras CS '30, NVIDIA Dev Member, and Security Researcher.">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@mantisxdarling">
+<meta name="twitter:creator" content="@mantisxdarling">
+<meta name="twitter:title" content="Harshit Kumar — AI Systems Architect &amp; Founder">
+<meta name="twitter:description" content="AI Systems Architect, Google GEAR Fellow, IIT Madras CS '30, NVIDIA Dev Member, and Security Researcher.">
+
+<!-- Structured Data (JSON-LD) for Google Rich Snippets & Knowledge Graph -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://mantisdarling.in/#person",
+      "name": "Harshit Kumar",
+      "alternateName": ["mantisdarling", "Harshit K"],
+      "url": "https://mantisdarling.in/",
+      "jobTitle": "AI Systems Architect & Founder",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "MANTIS"
+      },
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Indian Institute of Technology Madras",
+          "sameAs": "https://www.iitm.ac.in"
+        }
+      ],
+      "sameAs": [
+        "https://github.com/mantisdarling",
+        "https://linkedin.com/in/mantisdarling",
+        "https://twitter.com/mantisxdarling",
+        "https://g.dev/mantisdarling"
+      ],
+      "knowsAbout": [
+        "Artificial Intelligence",
+        "Autonomous AI Agents",
+        "Distributed Systems",
+        "Operating Systems",
+        "Cybersecurity",
+        "Solutions Architecture"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://mantisdarling.in/#website",
+      "url": "https://mantisdarling.in/",
+      "name": "Harshit Kumar Portfolio",
+      "description": "Portfolio of Harshit Kumar (mantisdarling), AI Systems Architect & Founder.",
+      "publisher": {
+        "@id": "https://mantisdarling.in/#person"
+      },
+      "inLanguage": "en"
+    }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
@@ -51,6 +124,19 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* ─── SCREEN READER & SEO VISIBILITY ─── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ─── SCATTER CANVASES ─── */
@@ -830,6 +916,12 @@ function initEngines() {
 
     el.innerHTML = '';
     el.appendChild(container);
+    el.setAttribute('aria-label', text);
+
+    const srSpan = document.createElement('span');
+    srSpan.className = 'sr-only';
+    srSpan.textContent = text;
+    el.appendChild(srSpan);
 
     const particles = [];
     let canvasW = 0, canvasH = 0;
