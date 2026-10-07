@@ -1,4 +1,4 @@
-# Harshit Kumar — Portfolio
+# Harshit Kumar Portfolio
 
 [![CI Quality & Security Gates](https://github.com/mantisdarling/Portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/mantisdarling/Portfolio/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-000000.svg?style=flat-square)](LICENSE)
