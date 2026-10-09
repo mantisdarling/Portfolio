@@ -6,7 +6,7 @@
 [![Security: Hardened](https://img.shields.io/badge/Security-A%2B%20Hardened-000000.svg?style=flat-square&logo=shield&logoColor=white)](vercel.json)
 [![Edge: Vercel](https://img.shields.io/badge/Deploy-Vercel%20Edge-000000.svg?style=flat-square&logo=vercel&logoColor=white)](https://vercel.com)
 
-The official personal portfolio of **Harshit Kumar** ([`mantisdarling`](https://github.com/mantisdarling)) — AI Systems Architect, Founder @ [MANTIS](https://mantisdarling.in), Google GEAR Fellow, IIT Madras (CS '30), NVIDIA Developer Program Member, and Security Researcher.
+The official personal portfolio of **Harshit Kumar** ([`mantisdarling`](https://github.com/mantisdarling)) - AI Systems Architect, Founder @ [MANTIS](https://mantisdarling.in), Google GEAR Fellow, IIT Madras (CS '30), NVIDIA Developer Program Member, and Security Researcher.
 
 An ultra-minimalist, high-performance web experience inspired by monochrome monospace terminals, featuring real-time Hooke's Law canvas particle physics, an interactive Web Audio API synthesizer, and an enterprise defense-in-depth security posture.
 
